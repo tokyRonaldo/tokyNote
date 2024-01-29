@@ -1,0 +1,40 @@
+        <div class="modal-dialog modal-lg">
+         <div class="modal-content" >
+         <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Historique</h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+                <table class="col-md-12">
+                {% if listDid is empty %}
+                <tr>
+                <td>
+                 <p style="color:red;">Vide</p>
+                 </td>
+                 </tr>
+                {% else %}
+                {%for did in listDid %}
+                <tr>
+                <input type="hidden" name="hiddenContenuValue{{did.id}}" id="hiddenContenuValue{{did.id}}" value="{{did.contenu}}"/>
+                <input type="hidden" name="hiddenContenuId" class="hiddenContenuId" value="{{did.id}}"/>
+                
+                <td>
+                 <b>{{did.updated_at ?? "now"|date("d-M-Y H:i ") }}</b>
+                <br/> 
+                <p>{{did.contenu}}</p>
+                </td>
+                <td class="col-md-1"><a href="{{ path('delete_bloc_note', {'id': did.id}) }}" class="btn btn-danger">effacer</a></td>
+                </tr>
+                {%endfor%}
+                {% endif %}
+
+                </table>
+            </div>
+     
+         <div class="modal-footer">
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+         </div>
+         </div>
+     </div>
+
+           

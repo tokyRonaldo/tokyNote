@@ -1,0 +1,20 @@
+index:
+    path: /index
+    controller: App\Controller\ToDoListController::index
+    
+  #index:
+   # path: /index
+    #controller: App\Controller\ToDoListController::index
+registration:
+    path: /api/register
+    controller: App\Controller\api\RegisterController::register
+    methods: [POST]
+
+login:
+    path: /api/login
+    controller: App\Controller\api\LoginController::login
+    methods: [POST]
+
+logout:
+    path: /api/logout
+    controller: App\Controller\LogoutController::logout

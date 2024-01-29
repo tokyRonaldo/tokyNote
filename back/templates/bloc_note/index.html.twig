@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bloc note!{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <h1>Bloc note</h1>
+            <div class="mt-4">
+                <form class="form-inline"  method="POST" action="{{path('edit_bloc_note', {'id': 1} )}}"> 
+                    <div class="row form-group">
+                    <div class="col-md-8">
+
+                        <input type="text" name="todo" class="form-control" id="todo" placeholder="a faire" />
+                    </div>
+                    <div class="col-md-2">
+
+                        <button type="submit" id="addBlocNote"  class="btn btn-primary">à faire</button>
+                    </div>
+                    </div>
+                </form>  
+            </div>
+            <div class="mt-4">
+                <table class="col-md-12">
+                {%for todo in listTodo %}
+                <tr>
+                <input type="hidden" name="hiddenContenuValue{{todo.id}}" class="hiddenContenuValue" value="{{todo.contenu}}"/>
+                <input type="hidden" name="hiddenContenuId" class="hiddenContenuId" value="{{todo.id}}"/>
+                <div class="dataEditUrl" data-edit-url="{{ path('edit_bloc_note', {'id': todo.id}) }}"></div>
+
+                <td>
+                {% if todo.updated_at is defined %}
+                <b>{{todo.updated_at|date("d-M-Y H:i ") }}</b>
+                {% else %}
+                <b>{{"now"|date("d-M-Y H:i ") }}</b>
+                {% endif %}
+                <br/> 
+                <p>{{todo.contenu}}</p>
+                </td>
+                <td class=" col-md-1">
+                    <div class="btn-group" role="group">
+                        <button type="button" id="btnGroupDrop1"  class="btn btn-primary dropdown-toggle" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">Action <span class="caret"></span></button>
+                        <div class="dropdown-menu" >
+                            <a href="{{ path('finish_bloc_note', {'id': todo.id}) }}" class="btn btn-danger dropdown-item">fini</a>
+                            <button data-bs-toggle="modal"   data-bs-target="#createModal" class="btn btn-success dropdown-item edit_note">editer</button>
+                            <a href="{{ path('delete_bloc_note', {'id': todo.id}) }}" class="btn btn-danger dropdown-item">effacer</a>
+                        </div>
+                    </div>
+                </td>
+                </tr>
+                {%endfor%}
+                </table>
+                <div class="pagination">
+                    {{ knp_pagination_render(listTodo) }}
+                </div>
+            </div>
+
+            <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  
+                </div>
+            </div>
+
+            <div class="modal fade" id="historiqueModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
